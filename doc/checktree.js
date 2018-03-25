@@ -41,10 +41,10 @@ var treeData = [
             { title: "Sub-item 4.4 (unselectable)", unselectable: true }
         ]
     },
-    { title: "EMAP", key: "EMAP" },
-    { title: "osm", key: "osm" },
-    { title: "B5000", key: "B5000" },
-    { title: "PHOTO2", key: "PHOTO2" }
+    { title: "EMAP", key: "EMAP", select: false },
+    { title: "osm", key: "osm", select: false },
+    { title: "B5000", key: "B5000", select: false },
+    { title: "PHOTO2", key: "PHOTO2", select: false }
 ]
 
 

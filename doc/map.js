@@ -215,26 +215,27 @@ $(function () {
 
     $("#tree3").dynatree({
         checkbox: true,
-        selectMode: 1,
+        selectMode: 3,
         children: treeData,
         onSelect: function (select, node) {
+
+            alert(node.data.key);
+
+            if (node.data.select == false) {
+                map.addLayer(layers[node.data.key].layer);
+                node.data.select = true;
+                alert(node.data.select);
+            }
+            else {
+                map.removeLayer(layers[node.data.key].layer);
+                node.data.select = false;
+                alert(node.data.select);
+            }
             // Get a list of all selected nodes, and convert to a key array:
             var selKeys = $.map(node.tree.getSelectedNodes(), function (node) {
 
                 return node.data.key;
             });
-
-            //console.log(selKeys);
-
-
-
-            $.each(selKeys, function (key, value) {
-                map.removeLayer(layers[defaultLayers['baselayer']].layer);
-                map.addLayer(layers[value].layer);
-                defaultLayers['baselayer'] = value;
-                console.log(value);
-            });
-
 
             $("#echoSelection3").text(selKeys.join(", "));
 
