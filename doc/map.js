@@ -179,9 +179,43 @@ map.addLayer(layers[defaultLayers['baselayer']].layer);
 
 $(function () {
 
+
+    //radio
+
+    $("#tree1").dynatree({
+        checkbox: true,
+        // Override class name for checkbox icon:
+        classNames: { checkbox: "dynatree-radio" },
+        selectMode: 1,
+        children: treeData,
+        onActivate: function (node) {
+            $("#echoActive1").text(node.data.title);
+        },
+        onSelect: function (select, node) {
+            // Display list of selected nodes
+            $.map(node.tree.getSelectedNodes(), function (node) {
+                console.log(node.data.key);
+                map.removeLayer(layers[defaultLayers['baselayer']].layer);
+                map.addLayer(layers[node.data.key].layer);
+                defaultLayers['baselayer'] = node.data.key;
+                return node.data.key;
+            });
+            /*var s = node.tree.getSelectedNodes().join(", ");
+            console.log(s);*/
+
+
+
+            $("#echoSelection1").text(node.data.key);
+        }
+
+    });
+
+
+    //checkbox 
+
     $("#tree3").dynatree({
         checkbox: true,
-        selectMode: 3,
+        selectMode: 1,
         children: treeData,
         onSelect: function (select, node) {
             // Get a list of all selected nodes, and convert to a key array:
@@ -210,6 +244,7 @@ $(function () {
             var selRootKeys = $.map(selRootNodes, function (node) {
                 return node.data.key;
             });
+
             $("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
             $("#echoSelectionRoots3").text(selRootNodes.join(", "));
         },
